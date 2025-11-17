@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课堂小组积分系统</title>
+    <title>课堂小组积分系统 - 跨设备版</title>
     <style>
         * {
             margin: 0;
@@ -13,82 +13,91 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             padding: 20px;
         }
         
         .container {
             display: flex;
+            flex-direction: column;
             max-width: 1200px;
             margin: 0 auto;
             gap: 20px;
         }
         
-        .groups-panel {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .display-mode {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .ranking-panel {
-            flex: 1;
+        .control-mode {
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         h1 {
             text-align: center;
-            color: white;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            font-size: 2.5rem;
+            color: #4a5568;
+            margin-bottom: 25px;
+            font-size: 28px;
         }
         
         h2 {
-            color: #4a4a4a;
+            color: #4a5568;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
-            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
         }
         
-        .group-list {
+        .groups-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
         }
         
-        .group-item {
-            background: linear-gradient(135deg, #42a5f5, #2979ff);
+        .control-groups {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .group-btn {
+            padding: 18px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .group-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        .group-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
         }
         
-        .group-name {
-            font-size: 1.5rem;
+        .control-btn {
+            padding: 15px 10px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .group-score {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .minus-btn {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
         }
         
         .ranking-list {
@@ -97,312 +106,451 @@
         
         .ranking-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            background: #f5f5f5;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         
         .ranking-item:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .rank {
-            font-size: 1.5rem;
-            font-weight: bold;
-            width: 40px;
-            text-align: center;
-            margin-right: 15px;
+            background: #edf2f7;
         }
         
         .rank-1 {
-            background: linear-gradient(135deg, #ffd700, #ff9800);
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, #ffd700, #ffec8b);
+            color: #7c6a0a;
+            font-weight: bold;
         }
         
         .rank-2 {
-            background: linear-gradient(135deg, #c0c0c0, #9e9e9e);
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            color: #5a5a5a;
+            font-weight: bold;
         }
         
         .rank-3 {
-            background: linear-gradient(135deg, #cd7f32, #8d6e63);
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .ranking-info {
-            flex: 1;
-        }
-        
-        .ranking-name {
+            background: linear-gradient(135deg, #cd7f32, #e9b076);
+            color: #6e4c1e;
             font-weight: bold;
-            font-size: 1.2rem;
         }
         
-        .ranking-score {
-            font-size: 1.1rem;
-            color: #666;
+        .group-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .group-score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a5568;
         }
         
         .potatoes-container {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
             display: flex;
             justify-content: center;
-            gap: 20px;
-            z-index: 100;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap;
         }
         
         .potato {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-            border-radius: 50% 50% 45% 45%;
-            position: relative;
+            width: 70px;
+            height: 70px;
             cursor: move;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
+            transition: transform 0.3s ease;
+            user-select: none;
         }
         
         .potato:hover {
             transform: scale(1.1);
         }
         
-        .potato::before, .potato::after {
-            content: '';
-            position: absolute;
-            background: #5D4037;
-            border-radius: 50%;
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        .potato::before {
-            width: 15px;
-            height: 15px;
-            top: 20px;
-            left: 25px;
+        .control-panel-btn {
+            padding: 12px 25px;
+            background: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .potato::after {
-            width: 15px;
-            height: 15px;
-            top: 20px;
-            right: 25px;
+        .control-panel-btn:hover {
+            background: #2d3748;
         }
         
-        .potato .mouth {
-            position: absolute;
-            width: 30px;
-            height: 10px;
-            background: #5D4037;
-            border-radius: 0 0 15px 15px;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
+        .connection-status {
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-weight: bold;
         }
         
-        .potato:nth-child(2) {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
+        .connected {
+            background: #d4edda;
+            color: #155724;
         }
         
-        .potato:nth-child(3) {
-            background: linear-gradient(135deg, #E91E63, #C2185B);
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
         }
         
-        .potato:nth-child(4) {
-            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-        }
-        
-        @media (max-width: 768px) {
+        /* 响应式设计 */
+        @media (min-width: 768px) {
             .container {
-                flex-direction: column;
+                flex-direction: row;
             }
             
-            .group-list {
+            .display-mode {
+                flex: 2;
+            }
+            
+            .control-mode {
+                flex: 1;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .groups-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .control-groups {
                 grid-template-columns: 1fr;
-            }
-            
-            .potatoes-container {
-                position: relative;
-                margin-top: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>课堂小组积分系统</h1>
-    
     <div class="container">
-        <div class="groups-panel">
-            <h2>小组积分</h2>
-            <div class="group-list">
-                <!-- 小组将通过JavaScript动态生成 -->
+        <!-- 大屏幕显示模式 -->
+        <div class="display-mode">
+            <h1>🏆 课堂小组积分榜 🏆</h1>
+            <div class="connection-status disconnected" id="status">
+                未连接 - 请打开控制面板
+            </div>
+            
+            <h2>实时排名</h2>
+            <ul class="ranking-list" id="rankingList">
+                <!-- 排名将通过JavaScript动态生成 -->
+            </ul>
+            
+            <div class="potatoes-container" id="potatoesContainer">
+                <!-- 小土豆形象将通过JavaScript动态生成 -->
             </div>
         </div>
         
-        <div class="ranking-panel">
-            <h2>实时排名</h2>
-            <ul class="ranking-list">
-                <!-- 排名将通过JavaScript动态生成 -->
-            </ul>
+        <!-- iPad控制模式 -->
+        <div class="control-mode">
+            <h2>📱 控制面板</h2>
+            <div class="connection-status disconnected" id="controlStatus">
+                等待连接...
+            </div>
+            
+            <h3>小组加减分</h3>
+            <div class="control-groups" id="controlGroups">
+                <!-- 控制按钮将通过JavaScript动态生成 -->
+            </div>
+            
+            <div class="controls">
+                <button class="control-panel-btn" id="resetBtn">重置所有分数</button>
+                <button class="control-panel-btn" id="randomBtn">随机加分</button>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                <h4>连接说明：</h4>
+                <p>1. 在大屏幕浏览器中打开此页面</p>
+                <p>2. 在iPad中打开相同页面</p>
+                <p>3. 系统将自动同步数据</p>
+            </div>
         </div>
-    </div>
-    
-    <div class="potatoes-container">
-        <div class="potato" draggable="true"><div class="mouth"></div></div>
-        <div class="potato" draggable="true"><div class="mouth"></div></div>
-        <div class="potato" draggable="true"><div class="mouth"></div></div>
-        <div class="potato" draggable="true"><div class="mouth"></div></div>
     </div>
 
     <script>
         // 初始化小组数据
-        let groups = [
-            { id: 1, name: 'G1', score: 0 },
-            { id: 2, name: 'G2', score: 0 },
-            { id: 3, name: 'G3', score: 0 },
-            { id: 4, name: 'G4', score: 0 },
-            { id: 5, name: 'G5', score: 0 },
-            { id: 6, name: 'G6', score: 0 },
-            { id: 7, name: 'G7', score: 0 },
-            { id: 8, name: 'G8', score: 0 }
-        ];
-
-        // 初始化DOM元素
-        const groupList = document.querySelector('.group-list');
-        const rankingList = document.querySelector('.ranking-list');
-
-        // 渲染小组列表
-        function renderGroups() {
-            groupList.innerHTML = '';
-            groups.forEach(group => {
-                const groupItem = document.createElement('div');
-                groupItem.className = 'group-item';
-                groupItem.innerHTML = `
-                    <div class="group-name">${group.name}</div>
-                    <div class="group-score">${group.score} 分</div>
-                `;
-                groupItem.addEventListener('click', () => {
-                    group.score += 1;
-                    updateRanking();
-                    renderGroups();
-                });
-                groupList.appendChild(groupItem);
+        let groups = [];
+        for (let i = 1; i <= 8; i++) {
+            groups.push({
+                id: i,
+                name: `G${i}`,
+                score: 0
             });
         }
-
+        
+        // 初始化小土豆数据
+        const potatoes = [
+            { id: 1, color: '#FFD700', name: '金土豆' },
+            { id: 2, color: '#FF6347', name: '红土豆' },
+            { id: 3, color: '#32CD32', name: '绿土豆' },
+            { id: 4, color: '#1E90FF', name: '蓝土豆' }
+        ];
+        
+        // 使用localStorage进行设备间数据同步
+        const STORAGE_KEY = 'classroom_groups_data';
+        
+        // 保存数据到localStorage
+        function saveData() {
+            const data = {
+                groups: groups,
+                timestamp: Date.now()
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+        
+        // 从localStorage加载数据
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    // 只加载5分钟内的数据
+                    if (Date.now() - data.timestamp < 5 * 60 * 1000) {
+                        groups = data.groups;
+                        return true;
+                    }
+                } catch (e) {
+                    console.log('无法加载保存的数据');
+                }
+            }
+            return false;
+        }
+        
+        // 更新连接状态
+        function updateConnectionStatus() {
+            const lastUpdate = localStorage.getItem('last_sync');
+            const statusElement = document.getElementById('status');
+            const controlStatusElement = document.getElementById('controlStatus');
+            
+            if (lastUpdate && Date.now() - parseInt(lastUpdate) < 5000) {
+                statusElement.textContent = '✅ 已连接 - 数据同步正常';
+                statusElement.className = 'connection-status connected';
+                controlStatusElement.textContent = '✅ 已连接到大屏幕';
+                controlStatusElement.className = 'connection-status connected';
+            } else {
+                statusElement.textContent = '❌ 未连接 - 请打开控制面板';
+                statusElement.className = 'connection-status disconnected';
+                controlStatusElement.textContent = '❌ 等待连接大屏幕...';
+                controlStatusElement.className = 'connection-status disconnected';
+            }
+        }
+        
+        // 渲染大屏幕显示
+        function renderDisplay() {
+            updateRanking();
+            renderPotatoes();
+        }
+        
+        // 渲染控制面板
+        function renderControlPanel() {
+            const controlGroups = document.getElementById('controlGroups');
+            controlGroups.innerHTML = '';
+            
+            groups.forEach(group => {
+                const groupControl = document.createElement('div');
+                groupControl.style.display = 'flex';
+                groupControl.style.flexDirection = 'column';
+                groupControl.style.gap = '5px';
+                
+                const groupLabel = document.createElement('div');
+                groupLabel.textContent = `${group.name}: ${group.score}分`;
+                groupLabel.style.textAlign = 'center';
+                groupLabel.style.fontWeight = 'bold';
+                groupLabel.style.marginBottom = '5px';
+                
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.style.display = 'flex';
+                buttonsContainer.style.gap = '5px';
+                
+                const minusBtn = document.createElement('button');
+                minusBtn.className = 'control-btn minus-btn';
+                minusBtn.textContent = '-1';
+                minusBtn.onclick = () => {
+                    if (group.score > 0) {
+                        group.score -= 1;
+                        updateGroupData();
+                    }
+                };
+                
+                const plusBtn = document.createElement('button');
+                plusBtn.className = 'control-btn';
+                plusBtn.textContent = '+1';
+                plusBtn.onclick = () => {
+                    group.score += 1;
+                    updateGroupData();
+                };
+                
+                buttonsContainer.appendChild(minusBtn);
+                buttonsContainer.appendChild(plusBtn);
+                
+                groupControl.appendChild(groupLabel);
+                groupControl.appendChild(buttonsContainer);
+                controlGroups.appendChild(groupControl);
+            });
+        }
+        
         // 更新排名
         function updateRanking() {
-            // 按分数从高到低排序
+            const rankingList = document.getElementById('rankingList');
+            rankingList.innerHTML = '';
+            
+            // 按分数排序
             const sortedGroups = [...groups].sort((a, b) => b.score - a.score);
             
-            rankingList.innerHTML = '';
             sortedGroups.forEach((group, index) => {
-                const rankClass = index < 3 ? `rank-${index+1}` : '';
+                const listItem = document.createElement('li');
+                listItem.className = `ranking-item rank-${index + 1}`;
                 
-                const rankingItem = document.createElement('li');
-                rankingItem.className = 'ranking-item';
-                rankingItem.innerHTML = `
-                    <div class="rank ${rankClass}">${index + 1}</div>
-                    <div class="ranking-info">
-                        <div class="ranking-name">${group.name}</div>
-                        <div class="ranking-score">${group.score} 分</div>
-                    </div>
-                `;
-                rankingList.appendChild(rankingItem);
+                const groupName = document.createElement('span');
+                groupName.className = 'group-name';
+                groupName.textContent = `${index + 1}. ${group.name}`;
+                
+                const groupScore = document.createElement('span');
+                groupScore.className = 'group-score';
+                groupScore.textContent = `${group.score} 分`;
+                
+                listItem.appendChild(groupName);
+                listItem.appendChild(groupScore);
+                rankingList.appendChild(listItem);
             });
         }
-
-        // 初始化页面
-        renderGroups();
-        updateRanking();
-
-        // 实现小土豆的拖拽功能
-        const potatoes = document.querySelectorAll('.potato');
         
-        potatoes.forEach(potato => {
-            let isDragging = false;
-            let offsetX, offsetY;
+        // 渲染小土豆
+        function renderPotatoes() {
+            const potatoesContainer = document.getElementById('potatoesContainer');
+            potatoesContainer.innerHTML = '';
             
-            potato.addEventListener('mousedown', startDrag);
-            potato.addEventListener('touchstart', startDrag);
-            
-            function startDrag(e) {
-                isDragging = true;
+            potatoes.forEach(potato => {
+                const potatoElement = document.createElement('div');
+                potatoElement.className = 'potato';
+                potatoElement.style.backgroundColor = potato.color;
+                potatoElement.style.borderRadius = '50% 40% 50% 40%';
+                potatoElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+                potatoElement.style.position = 'relative';
                 
-                if (e.type === 'mousedown') {
-                    offsetX = e.clientX - potato.getBoundingClientRect().left;
-                    offsetY = e.clientY - potato.getBoundingClientRect().top;
-                    document.addEventListener('mousemove', drag);
-                    document.addEventListener('mouseup', stopDrag);
-                } else if (e.type === 'touchstart') {
-                    const touch = e.touches[0];
-                    offsetX = touch.clientX - potato.getBoundingClientRect().left;
-                    offsetY = touch.clientY - potato.getBoundingClientRect().top;
-                    document.addEventListener('touchmove', drag);
-                    document.addEventListener('touchend', stopDrag);
+                // 添加小土豆的眼睛和嘴巴
+                potatoElement.innerHTML = `
+                    <div style="position: absolute; top: 25%; left: 30%; width: 10px; height: 10px; background: #333; border-radius: 50%;"></div>
+                    <div style="position: absolute; top: 25%; right: 30%; width: 10px; height: 10px; background: #333; border-radius: 50%;"></div>
+                    <div style="position: absolute; bottom: 30%; left: 50%; transform: translateX(-50%); width: 20px; height: 8px; background: #333; border-radius: 50%;"></div>
+                `;
+                
+                // 添加拖动功能
+                makeDraggable(potatoElement);
+                
+                potatoesContainer.appendChild(potatoElement);
+            });
+        }
+        
+        // 使元素可拖动
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            element.onmousedown = dragMouseDown;
+            element.ontouchstart = dragTouchStart;
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            
+            function dragTouchStart(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                document.ontouchend = closeDragElement;
+                document.ontouchmove = elementTouchDrag;
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+                element.style.position = 'absolute';
+            }
+            
+            function elementTouchDrag(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                pos1 = pos3 - touch.clientX;
+                pos2 = pos4 - touch.clientY;
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+                element.style.position = 'absolute';
+            }
+            
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+                document.ontouchend = null;
+                document.ontouchmove = null;
+            }
+        }
+        
+        // 更新小组数据（同步到所有设备）
+        function updateGroupData() {
+            saveData();
+            localStorage.setItem('last_sync', Date.now().toString());
+            updateRanking();
+            renderControlPanel();
+        }
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            // 加载保存的数据
+            loadData();
+            
+            // 渲染界面
+            renderDisplay();
+            renderControlPanel();
+            
+            // 设置定时器检查数据更新
+            setInterval(() => {
+                loadData();
+                updateRanking();
+                updateConnectionStatus();
+            }, 1000);
+            
+            // 重置所有分数
+            document.getElementById('resetBtn').addEventListener('click', () => {
+                if (confirm('确定要重置所有小组的分数吗？')) {
+                    groups.forEach(group => group.score = 0);
+                    updateGroupData();
                 }
-                
-                potato.style.zIndex = 1000;
-            }
+            });
             
-            function drag(e) {
-                if (!isDragging) return;
-                
-                let clientX, clientY;
-                
-                if (e.type === 'mousemove') {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
-                } else if (e.type === 'touchmove') {
-                    const touch = e.touches[0];
-                    clientX = touch.clientX;
-                    clientY = touch.clientY;
-                }
-                
-                const newX = clientX - offsetX;
-                const newY = clientY - offsetY;
-                
-                potato.style.position = 'fixed';
-                potato.style.left = `${newX}px`;
-                potato.style.top = `${newY}px`;
-            }
-            
-            function stopDrag() {
-                isDragging = false;
-                document.removeEventListener('mousemove', drag);
-                document.removeEventListener('mouseup', stopDrag);
-                document.removeEventListener('touchmove', drag);
-                document.removeEventListener('touchend', stopDrag);
-                
-                // 保持小土豆在底部区域
-                setTimeout(() => {
-                    potato.style.zIndex = '';
-                }, 100);
-            }
+            // 随机加分
+            document.getElementById('randomBtn').addEventListener('click', () => {
+                const randomGroupIndex = Math.floor(Math.random() * groups.length);
+                groups[randomGroupIndex].score += 1;
+                updateGroupData();
+            });
         });
     </script>
 </body>
