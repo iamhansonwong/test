@@ -15,55 +15,60 @@
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
-            padding-bottom: 150px;
         }
         
         .container {
             display: flex;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            gap: 30px;
+            gap: 20px;
+            min-height: 600px;
         }
         
         .ranking-panel {
             flex: 1;
             background: white;
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 20px;
-            height: fit-content;
+            overflow-y: auto;
         }
         
         .teams-panel {
             flex: 1;
             background: white;
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            position: relative;
         }
         
         h1 {
             text-align: center;
             color: #4a6baf;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-size: 2rem;
         }
         
         h2 {
             color: #4a6baf;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
             border-bottom: 2px solid #eaeaea;
+            font-size: 1.5rem;
         }
         
         .teams-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            overflow: visible;
         }
         
         .team-card {
@@ -71,42 +76,43 @@
             align-items: center;
             justify-content: space-between;
             background: #f8f9ff;
-            border-radius: 15px;
-            padding: 15px 20px;
+            border-radius: 12px;
+            padding: 12px 15px;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            min-height: 70px;
         }
         
         .team-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: #4a6baf;
         }
         
         .team-name {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #4a6baf;
         }
         
         .team-score {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #ff6b6b;
-            min-width: 50px;
+            min-width: 40px;
             text-align: center;
         }
         
         .team-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         button {
             border: none;
-            border-radius: 10px;
-            padding: 8px 15px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
             font-weight: bold;
@@ -136,8 +142,9 @@
         .control-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 25px;
-            gap: 15px;
+            margin-bottom: 20px;
+            gap: 12px;
+            flex-shrink: 0;
         }
         
         .random-btn {
@@ -169,10 +176,10 @@
         .ranking-item {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 12px;
             background: #f8f9ff;
-            border-radius: 15px;
+            border-radius: 12px;
             transition: all 0.3s ease;
         }
         
@@ -182,8 +189,8 @@
         }
         
         .ranking-position {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -191,42 +198,44 @@
             color: white;
             border-radius: 50%;
             font-weight: bold;
-            margin-right: 15px;
+            margin-right: 12px;
+            font-size: 0.9rem;
         }
         
         .ranking-name {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #4a6baf;
             flex: 1;
         }
         
         .ranking-score {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #ff6b6b;
         }
         
         .potatoes-container {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
             display: flex;
-            justify-content: space-around;
-            padding: 20px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-top: auto;
             pointer-events: none;
-            z-index: 100;
+            position: relative;
+            min-height: 100px;
+            flex-shrink: 0;
         }
         
         .potato {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             cursor: move;
             position: absolute;
             transition: transform 0.2s;
             pointer-events: auto;
-            touch-action: none; /* 关键：防止浏览器默认触摸行为 */
+            touch-action: none;
+            flex-shrink: 0;
         }
         
         .potato:hover {
@@ -234,27 +243,27 @@
         }
         
         .potato1 {
-            background: #FF6B6B;
+            background: #FF9E7D;
             border-radius: 50% 50% 45% 45%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
         .potato2 {
-            background: #4ECDC4;
+            background: #FFD166;
             border-radius: 45% 45% 50% 50%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
         .potato3 {
-            background: #FFD166;
+            background: #C5A8FF;
             border-radius: 50% 45% 45% 50%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
         .potato4 {
-            background: #9B5DE5;
+            background: #A5D8FF;
             border-radius: 45% 50% 50% 45%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
         .potato::before, .potato::after {
@@ -265,71 +274,109 @@
         }
         
         .potato::before {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             top: 25%;
             left: 30%;
         }
         
         .potato::after {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             top: 25%;
             right: 30%;
         }
         
         .potato .mouth {
             position: absolute;
-            width: 25px;
-            height: 12px;
+            width: 20px;
+            height: 10px;
             background: transparent;
-            border-bottom: 3px solid #5d4037;
+            border-bottom: 2px solid #5d4037;
             border-radius: 0 0 50% 50%;
             bottom: 25%;
             left: 50%;
             transform: translateX(-50%);
         }
         
-        /* 移动端样式 */
-        @media (max-width: 900px) {
+        /* 麻子样式 */
+        .potato .freckle {
+            position: absolute;
+            background: #8B4513;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+        
+        .potato1 .freckle {
+            background: #A0522D;
+        }
+        
+        .potato2 .freckle {
+            background: #CD853F;
+        }
+        
+        .potato3 .freckle {
+            background: #8B7355;
+        }
+        
+        .potato4 .freckle {
+            background: #BC8F8F;
+        }
+        
+        /* iPad 横屏优化 */
+        @media (max-width: 1200px) and (min-width: 768px) and (orientation: landscape) {
             .container {
-                flex-direction: column;
+                gap: 15px;
+                min-height: 500px;
             }
             
-            .ranking-panel {
-                position: static;
+            .teams-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .team-card {
+                padding: 10px 12px;
+                min-height: 65px;
+            }
+            
+            .team-name {
+                font-size: 1.2rem;
+            }
+            
+            .team-score {
+                font-size: 1.3rem;
+            }
+            
+            .ranking-name {
+                font-size: 1.4rem;
+            }
+            
+            .ranking-score {
+                font-size: 1.3rem;
             }
             
             .potato {
                 width: 70px;
                 height: 70px;
             }
-            
-            .potato::before, .potato::after {
-                width: 7px;
-                height: 7px;
-            }
-            
-            .potato .mouth {
-                width: 18px;
-                height: 9px;
-                border-bottom-width: 2px;
-            }
-            
-            body {
-                padding-bottom: 120px;
-            }
-            
-            .potatoes-container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
         }
         
-        @media (max-width: 600px) {
+        /* 移动端样式 */
+        @media (max-width: 767px) {
+            .container {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ranking-panel {
+                position: static;
+            }
+            
             .potato {
                 width: 60px;
                 height: 60px;
@@ -345,8 +392,13 @@
                 height: 8px;
             }
             
-            body {
-                padding-bottom: 100px;
+            .potatoes-container {
+                min-height: 80px;
+                padding: 10px 0;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -372,11 +424,11 @@
                 <button class="random-btn" id="randomAdd">随机加分</button>
                 <button class="reset-btn" id="resetAll">重置所有分数</button>
             </div>
+            
+            <div class="potatoes-container" id="potatoesContainer">
+                <!-- 小土豆将通过JavaScript动态生成 -->
+            </div>
         </div>
-    </div>
-    
-    <div class="potatoes-container" id="potatoesContainer">
-        <!-- 小土豆将通过JavaScript动态生成 -->
     </div>
 
     <script>
@@ -509,22 +561,39 @@
         // 创建小土豆
         function createPotatoes() {
             const potatoesContainer = document.getElementById('potatoesContainer');
+            potatoesContainer.innerHTML = '';
             
-            // 计算初始位置，使土豆均匀分布在底部
-            const containerWidth = window.innerWidth;
-            const potatoWidth = window.innerWidth <= 900 ? 70 : 100;
+            const containerRect = potatoesContainer.getBoundingClientRect();
+            const containerWidth = containerRect.width;
+            const potatoWidth = 80;
             const spacing = (containerWidth - (4 * potatoWidth)) / 5;
             
             for (let i = 1; i <= 4; i++) {
                 const potato = document.createElement('div');
                 potato.className = `potato potato${i}`;
-                potato.innerHTML = '<div class="mouth"></div>';
                 
-                // 均匀分布位置
+                // 创建小土豆的面部特征
+                let frecklesHTML = '';
+                const freckleCount = Math.floor(Math.random() * 3) + 3;
+                for (let j = 0; j < freckleCount; j++) {
+                    const size = Math.random() * 4 + 2;
+                    const left = Math.random() * 60 + 20;
+                    const top = Math.random() * 40 + 40;
+                    frecklesHTML += `<div class="freckle" style="width: ${size}px; height: ${size}px; left: ${left}%; top: ${top}%;"></div>`;
+                }
+                
+                potato.innerHTML = `
+                    <div class="mouth"></div>
+                    ${frecklesHTML}
+                `;
+                
+                // 计算每个小土豆的初始位置 - 关键修改：使用精确的像素位置
                 const positionX = spacing * i + potatoWidth * (i - 1);
+                const positionY = (containerRect.height - potatoWidth) / 2; // 垂直居中
                 
-                potato.style.left = `${positionX}px`;
-                potato.style.bottom = '20px';
+                // 设置初始位置 - 关键修改：直接设置精确的top值
+                potato.style.left = positionX + 'px';
+                potato.style.top = positionY + 'px';
                 
                 potatoesContainer.appendChild(potato);
                 
@@ -533,83 +602,98 @@
             }
         }
 
-        // 使元素可拖动
+        // 使元素可拖动 - 彻底修复版本
         function makeDraggable(element) {
-            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
             let isDragging = false;
+            let startX, startY, initialX, initialY;
             
             // 鼠标事件
-            element.addEventListener('mousedown', dragMouseDown);
+            element.addEventListener('mousedown', startDrag);
             
-            // 触摸事件 - 关键修复
-            element.addEventListener('touchstart', dragTouchStart, { passive: false });
+            // 触摸事件
+            element.addEventListener('touchstart', startDragTouch, { passive: false });
             
-            function dragMouseDown(e) {
+            function startDrag(e) {
                 e.preventDefault();
-                // 获取鼠标光标位置
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.addEventListener('mouseup', closeDragElement);
-                document.addEventListener('mousemove', elementDrag);
                 isDragging = true;
-                element.style.zIndex = "1000";
+                
+                // 获取元素的当前精确位置
+                const rect = element.getBoundingClientRect();
+                const containerRect = element.parentElement.getBoundingClientRect();
+                
+                // 记录初始位置（相对于容器）
+                startX = e.clientX;
+                startY = e.clientY;
+                initialX = rect.left - containerRect.left;
+                initialY = rect.top - containerRect.top;
+                
+                element.style.zIndex = '1000';
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', stopDrag);
             }
             
-            function dragTouchStart(e) {
-                // 阻止默认行为以防止页面滚动
+            function startDragTouch(e) {
+                e.preventDefault();
+                if (e.touches.length !== 1) return;
+                
+                isDragging = true;
+                const touch = e.touches[0];
+                
+                // 获取元素的当前精确位置
+                const rect = element.getBoundingClientRect();
+                const containerRect = element.parentElement.getBoundingClientRect();
+                
+                // 记录初始位置（相对于容器）
+                startX = touch.clientX;
+                startY = touch.clientY;
+                initialX = rect.left - containerRect.left;
+                initialY = rect.top - containerRect.top;
+                
+                element.style.zIndex = '1000';
+                
+                document.addEventListener('touchmove', dragTouch, { passive: false });
+                document.addEventListener('touchend', stopDrag);
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                // 计算移动距离
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+                
+                // 设置新位置
+                element.style.left = (initialX + deltaX) + 'px';
+                element.style.top = (initialY + deltaY) + 'px';
+            }
+            
+            function dragTouch(e) {
+                if (!isDragging) return;
                 e.preventDefault();
                 if (e.touches.length !== 1) return;
                 
                 const touch = e.touches[0];
-                // 获取触摸位置
-                pos3 = touch.clientX;
-                pos4 = touch.clientY;
-                document.addEventListener('touchend', closeDragElement);
-                document.addEventListener('touchmove', elementTouchDrag, { passive: false });
-                isDragging = true;
-                element.style.zIndex = "1000";
-            }
-            
-            function elementDrag(e) {
-                if (!isDragging) return;
-                e.preventDefault();
-                // 计算新的光标位置
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                // 设置元素的新位置
-                element.style.top = (element.offsetTop - pos2) + "px";
-                element.style.left = (element.offsetLeft - pos1) + "px";
-                element.style.bottom = "auto";
-            }
-            
-            function elementTouchDrag(e) {
-                if (!isDragging) return;
-                // 阻止默认行为以防止页面滚动
-                e.preventDefault();
-                if (e.touches.length !== 1) return;
                 
-                const touch = e.touches[0];
-                // 计算新的触摸位置
-                pos1 = pos3 - touch.clientX;
-                pos2 = pos4 - touch.clientY;
-                pos3 = touch.clientX;
-                pos4 = touch.clientY;
-                // 设置元素的新位置
-                element.style.top = (element.offsetTop - pos2) + "px";
-                element.style.left = (element.offsetLeft - pos1) + "px";
-                element.style.bottom = "auto";
+                // 计算移动距离
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+                
+                // 设置新位置
+                element.style.left = (initialX + deltaX) + 'px';
+                element.style.top = (initialY + deltaY) + 'px';
             }
             
-            function closeDragElement() {
+            function stopDrag() {
                 isDragging = false;
-                element.style.zIndex = "";
-                // 停止移动
-                document.removeEventListener('mouseup', closeDragElement);
-                document.removeEventListener('mousemove', elementDrag);
-                document.removeEventListener('touchend', closeDragElement);
-                document.removeEventListener('touchmove', elementTouchDrag);
+                element.style.zIndex = '';
+                
+                // 移除事件监听器
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', stopDrag);
+                document.removeEventListener('touchmove', dragTouch);
+                document.removeEventListener('touchend', stopDrag);
             }
         }
 
@@ -642,11 +726,9 @@
             updateRanking();
             createPotatoes();
         };
-        
+
         // 窗口大小改变时重新调整小土豆位置
         window.addEventListener('resize', function() {
-            const potatoesContainer = document.getElementById('potatoesContainer');
-            potatoesContainer.innerHTML = '';
             createPotatoes();
         });
     </script>
